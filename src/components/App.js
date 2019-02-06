@@ -26,7 +26,6 @@ class App extends Component {
         }, userData).then(response => {
             localStorage.setItem('token', response.token);
             localStorage.setItem('id', response.id);
-            localStorage.setItem('myName', this.state.name);
             console.log("Пользователь аутентифицирован", response);
             this.setState({lkPage: false})
         })

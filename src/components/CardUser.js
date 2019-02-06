@@ -1,4 +1,5 @@
 import React from 'react'
+import {getPetitionOfConcretePerson} from './CreateRequest'
 
 export const CardUser = (allUsersForPetition) => {
     return (
@@ -11,8 +12,7 @@ export const CardUser = (allUsersForPetition) => {
                                 <b className="card-title">{user.name}</b><br/><br/>
                                 <p>Карма: {user.karma}</p>
                                 <p>Максимальный запрос: {user.maxRequest}</p>
-                                <button type="button" className="btn btn-outline-success col-12"
-                                        >Получить просьбы
+                                <button type="button" className="btn btn-outline-success col-12" onClick={() => getPetitionOfConcretePerson(user.id)}>Получить просьбы
                                 </button>
                             </div>
                         </div>

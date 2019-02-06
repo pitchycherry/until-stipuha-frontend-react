@@ -17,8 +17,19 @@ export const CreateRequest = (options, body) => {
         }
     });
 };
+
+export const getPetitionOfConcretePerson = (userId) => {
+    CreateRequest({
+        path: `https://until-stepuha-server.herokuapp.com/requests?userId=${userId}`,
+        method: "GET"
+    }).then(response => {
+        //this.setState({title: "Просьбы всех пользователей", myPetitions: response, flagPetitions: true})
+        console.log("Просьбы конкретного пользователя получены", response);
+    })
+        .catch(() => {
+            console.log("Просьбы конкретного пользователя не получены");
+        })
+}
 export const CreateDiv = () => {
-    return(
-        <div>aeprgmspr</div>
-    )
+    console.log("rctfvygbhnjmk,")
 }
