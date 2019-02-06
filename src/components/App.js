@@ -1,6 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import LkPage from "./LkPage";
 import {CreateRequest} from "./CreateRequest";
+import {MainPage} from "./MainPage"
+
+export const BASE_PATH = 'https://until-stepuha-server.herokuapp.com'
+export const LOGIN_PATH = '/login'
+export const ALL_PETITION_PATH = '/requests'
+export const ALL_USERS_PATH = '/users'
+export const BALANCE_PATH = '/balance'
 
 class App extends Component {
     state = {
@@ -21,7 +28,7 @@ class App extends Component {
             password: this.state.password
         };
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/login`,
+            path: `${BASE_PATH}${LOGIN_PATH}`,
             method: "POST"
         }, userData).then(response => {
             localStorage.setItem('token', response.token);
@@ -39,36 +46,12 @@ class App extends Component {
         return (
             <Fragment>
                 {lk ?
-                    <div className="fluid-container main-page">
-                        <div className="row">
-                            <div className="title-form col-10 col-lg-4">
-                                <div className="main-title text-center">
-                                    <p>Until Stipuha</p>
-                                </div>
-                                <div className="auth-form">
-                                    <form id="addUser" onSubmit={this.handleSubmit}>
-                                        <div className="form-group">
-                                            <label htmlFor="exampleInputEmail1">Логин</label>
-                                            <input className="form-control" name="name" id="exampleInputEmail1"
-                                                   aria-describedby="emailHelp"
-                                                   placeholder="Enter login" onChange={this.handleChangeName}/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="exampleInputPassword1">Пароль</label>
-                                            <input type="password" className="form-control" name="password"
-                                                   id="exampleInputPassword1"
-                                                   placeholder="Password" onChange={this.handleChangePassword}/>
-                                        </div>
-                                        <button type="submit" className="btn btn-outline-success">Войти</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div className="main-page_img col-lg-8 text-center">
-                                <img src={require('../img/doshirak.png')} alt="doshirak" width="500px"/>
-                            </div>
-                        </div>
-                    </div>
-                    : <LkPage/>
+                    <MainPage
+                        handleChangeName={this.handleChangeName}
+                        handleChangePassword={this.handleChangePassword}
+                        handleSubmit={this.handleSubmit}
+                    />
+                    : <LkPage />
                 }
             </Fragment>
         )

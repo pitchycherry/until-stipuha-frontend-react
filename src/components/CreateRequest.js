@@ -1,4 +1,5 @@
 import React from 'react'
+import {BASE_PATH, ALL_PETITION_PATH} from "./App"
 
 export const CreateRequest = (options, body) => {
     return fetch(options.path, {
@@ -20,7 +21,7 @@ export const CreateRequest = (options, body) => {
 
 export const getPetitionOfConcretePerson = (userId) => {
     CreateRequest({
-        path: `https://until-stepuha-server.herokuapp.com/requests?userId=${userId}`,
+        path: `${BASE_PATH}${ALL_PETITION_PATH}?userId=${userId}`,
         method: "GET"
     }).then(response => {
         //this.setState({title: "Просьбы всех пользователей", myPetitions: response, flagPetitions: true})

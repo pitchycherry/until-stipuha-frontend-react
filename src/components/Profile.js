@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {CreateRequest} from "./CreateRequest";
 import {CreatePetition} from "./CreatePetition";
+import {BASE_PATH, ALL_USERS_PATH, BALANCE_PATH} from "./App"
 
 class Profile extends Component {
     state = {
@@ -16,7 +17,7 @@ class Profile extends Component {
             delta: Number(this.state.valueToUpBalance),
         };
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/balance`,
+            path: `${BASE_PATH}${BALANCE_PATH}`,
             method: "PATCH"
         }, toUpBalanceData).then(response => {
 
@@ -28,7 +29,7 @@ class Profile extends Component {
     };
     componentDidMount() {
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/users/${localStorage.getItem("id")}`,
+            path: `${BASE_PATH}${ALL_USERS_PATH}/${localStorage.getItem("id")}`,
             method: "GET"
         }).then(response => {
             this.setState({data: response})

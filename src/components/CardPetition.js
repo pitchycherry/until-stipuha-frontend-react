@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {CreateRequest} from "./CreateRequest";
+import {BASE_PATH, ALL_PETITION_PATH} from "./App"
 
 export class CardPetition extends Component {
     state = {
@@ -15,7 +16,7 @@ export class CardPetition extends Component {
             value: Number(this.state.donate),
         };
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/requests/${petitionId}`,
+            path: `${BASE_PATH}${ALL_PETITION_PATH}/${petitionId}`,
             method: "PATCH"
         }, valueDonate).then(response => {
 

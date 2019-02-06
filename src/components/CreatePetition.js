@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {CreateRequest} from "./CreateRequest";
 import $ from "jquery";
+import {BASE_PATH, ALL_PETITION_PATH} from "./App"
 export class CreatePetition extends Component {
     state = {
         name: "",
@@ -24,7 +25,7 @@ export class CreatePetition extends Component {
             value: this.state.value
         };
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/requests`,
+            path: `${BASE_PATH}${ALL_PETITION_PATH}`,
             method: "POST"
         }, newPetitionData).then(response => {
 

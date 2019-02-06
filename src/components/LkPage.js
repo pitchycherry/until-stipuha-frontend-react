@@ -3,6 +3,7 @@ import Profile from "./Profile";
 import {CreateRequest} from "./CreateRequest";
 import {CardPetition} from "./CardPetition";
 import {CardUser} from "./CardUser";
+import {BASE_PATH, ALL_PETITION_PATH, ALL_USERS_PATH} from "./App"
 
 class LkPage extends Component {
     state = {
@@ -14,7 +15,7 @@ class LkPage extends Component {
     handleClickGetAllPetitions = () => {
         /*Просьбы всех пользователей*/
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/requests`,
+            path: `${BASE_PATH}${ALL_PETITION_PATH}`,
             method: "GET"
         }).then(response => {
             this.setState({title: "Просьбы всех пользователей", myPetitions: response, flagPetitions: true})
@@ -25,7 +26,7 @@ class LkPage extends Component {
             })
         /*Данные о всех пользователях*/
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/users`,
+            path: `${BASE_PATH}${ALL_USERS_PATH}`,
             method: "GET"
         }).then(responseUsers => {
             this.setState({allUsersForPetition: responseUsers})
@@ -38,7 +39,7 @@ class LkPage extends Component {
     handleClickGetMyPetitions = () => {
         /*Мои просьбы*/
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/requests?userId=${localStorage.getItem('id')}`,
+            path: `${BASE_PATH}${ALL_PETITION_PATH}?userId=${localStorage.getItem('id')}`,
             method: "GET"
         }).then(response => {
             this.setState({title: "Мои просьбы", myPetitions: response, flagPetitions: true})
@@ -49,7 +50,7 @@ class LkPage extends Component {
             })
         /*Данные о всех пользователях*/
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/users`,
+            path: `${BASE_PATH}${ALL_USERS_PATH}`,
             method: "GET"
         }).then(response => {
             this.setState({allUsersForPetition: response})
@@ -62,7 +63,7 @@ class LkPage extends Component {
     handleClickGetAllUsers = () => {
         /*Данные о всех пользователях*/
         CreateRequest({
-            path: `https://until-stepuha-server.herokuapp.com/users`,
+            path: `${BASE_PATH}${ALL_USERS_PATH}`,
             method: "GET"
         }).then(response => {
             this.setState({title: "Все пользователи", allUsersForPetition: response, flagPetitions: false})
