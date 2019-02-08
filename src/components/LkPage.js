@@ -12,6 +12,9 @@ class LkPage extends Component {
         myPetitions: [],
         allUsersForPetition: []
     }
+    updateDataPetitions = (value) => {
+        this.setState({ myPetitions: value })
+    }
     handleClickGetAllPetitions = () => {
         /*Просьбы всех пользователей*/
         CreateRequest({
@@ -115,7 +118,7 @@ class LkPage extends Component {
                             </div>
                             <br/><br/>
                             {/*Компонент для карточки просьбы*/}
-                            {dataFlagPetitions ? <CardPetition dataMyPetitions={dataMyPetitions} dataAllUsers={dataAllUsers} /> : CardUser(dataAllUsers)}
+                            {dataFlagPetitions ? <CardPetition dataMyPetitions={dataMyPetitions} dataAllUsers={dataAllUsers} updateDataPetitions={this.updateDataPetitions}/> : CardUser(dataAllUsers)}
 
                         </div>
                     </div>

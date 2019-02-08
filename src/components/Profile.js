@@ -5,7 +5,10 @@ import {BASE_PATH, ALL_USERS_PATH, BALANCE_PATH} from "./App"
 
 class Profile extends Component {
     state = {
-        data: [],
+        profileName: "",
+        profileKarma: "",
+        profileMaxRequest: "",
+        profileBalance: "",
         valueToUpBalance: 0
     }
     handleChangeToUpBalance = event => {
@@ -14,25 +17,30 @@ class Profile extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const toUpBalanceData = {
-            delta: Number(this.state.valueToUpBalance),
+            value: Number(this.state.valueToUpBalance),
         };
         CreateRequest({
             path: `${BASE_PATH}${BALANCE_PATH}`,
             method: "PATCH"
-        }, toUpBalanceData).then(response => {
-
-            console.log("Баланс пополнен", response);
-        })
+        }, toUpBalanceData).then(
+            this.setState({profileBalance: Number(this.state.valueToUpBalance) + Number(this.state.profileBalance)})
+        )
             .catch(() => {
-                console.log("Баланс не пополнен", toUpBalanceData);
+                console.log("Баланс не пополнен");
             });
     };
+
     componentDidMount() {
         CreateRequest({
             path: `${BASE_PATH}${ALL_USERS_PATH}/${localStorage.getItem("id")}`,
             method: "GET"
         }).then(response => {
-            this.setState({data: response})
+            this.setState({
+                profileName: response.name,
+                profileKarma: response.karma,
+                profileMaxRequest: response.maxRequest,
+                profileBalance: response.balance
+            })
             console.log("Данные о профиле получены", response);
         })
             .catch(() => {
@@ -41,15 +49,19 @@ class Profile extends Component {
     }
 
     render() {
-        const data = this.state.data
+        const profileName = this.state.profileName
+        const profileKarma = this.state.profileKarma
+        const profileMaxRequest = this.state.profileMaxRequest
+        const profileBalance = this.state.profileBalance
+
         return (
             <Fragment>
                 <div className="profile col-md-3">
                     <div className="about-user">
-                        <b className="b_font">{data.name}</b><br/><br/>
-                        <p>Карма: {data.karma}</p>
-                        <p>Максимальный запрос: {data.maxRequest}</p>
-                        <p>Баланс: {data.balance}</p>
+                        <b className="b_font">{profileName}</b><br/><br/>
+                        <p>Карма: {profileKarma}</p>
+                        <p>Максимальный запрос: {profileMaxRequest}</p>
+                        <p>Баланс: {profileBalance}</p>
                         <button className="btn btn-outline-success btn_info-user" type="button"
                                 data-toggle="modal" data-target="#createPetitionModal">Создать новую просьбу
                         </button>
@@ -65,7 +77,7 @@ class Profile extends Component {
                 </div>
 
                 {/*Модальное окно создания новой просьбы*/}
-                <CreatePetition />
+                <CreatePetition/>
             </Fragment>
 
         )

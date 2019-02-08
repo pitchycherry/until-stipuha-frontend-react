@@ -18,12 +18,12 @@ export class CardPetition extends Component {
         CreateRequest({
             path: `${BASE_PATH}${ALL_PETITION_PATH}/${petitionId}`,
             method: "PATCH"
-        }, valueDonate).then(response => {
-
-            console.log("Баланс пополнен", valueDonate, petitionId);
-        })
+        }, valueDonate).then(
+            //ДОДЕЛАТЬ!!!
+            //console.log("СДелан донат", this.props.dataMyPetition.filter(petition => petition.id === petitionId))
+        )
             .catch(() => {
-                console.log("Баланс не пополнен", valueDonate, petitionId);
+                console.log("Донат не сделан", valueDonate, petitionId);
             });
     };
     render() {
